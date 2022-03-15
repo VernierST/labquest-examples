@@ -1,37 +1,40 @@
-# Getting Started with Vernier LabQuest® interfaces and Python
+# Getting Started with Vernier LabQuest® and Python
 
-This guide shows you how to get started writing Python programs for your [Vernier LabQuest® interfaces](https://www.vernier.com/products/labquest/). The guide contains the following topics:
+This guide shows you how to get started writing Python programs for your [Vernier LabQuest®](https://www.vernier.com/products/labquest/). The guide contains the following topics:
 
 - [Getting Started Requirements](#getting-started-requirements)
+- [Install the LabQuest Drivers](#install-the-windows-drivers) (Windows Only)
 - [Install Python 3](#install-python-3)
 - [Choose an IDE](#choose-an-ide)
-- [Install the Vernier labquest Module](#install-the-vernier-labquest-module)
-- [Confirm Installation of the labquest Module](#confirm-installation-of-the-labquest-module)
+- [Install the labquest Package](#install-the-labquest-package)
+- [Confirm Installation of the labquest Package](#confirm-installation-of-the-labquest-package)
 - [Download and Run an Example](#download-and-run-an-example)
+- [About the Examples](#about-the-examples)
+- [Notes Regarding the labquest Functions](#notes-regarding-the-labquest-functions)
 - [Troubleshooting and Notes](#troubleshooting-and-notes)
 
-If you are new to Python you should look over all of the steps. If you are familiar with Python you might just focus on installing the labquest module and downloading the examples.
+If you are new to Python you should look over all of the steps. If you are familiar with Python you might just focus on installing the labquest package and downloading the examples.
 
 ## Getting Started Requirements
 
-We have developed a Python module called `labquest` that allows you to communicate with Vernier LabQuest interfaces via USB. This requires the following: 
+We have developed a Python package called `labquest` that allows you to communicate with Vernier LabQuest devices via USB. This requires the following:
 
-- A Vernier LabQuest interface. Any of the following will work:
-  - [LabQuest Mini](https://www.vernier.com/product/labquest-mini/)
-  - [LabQuest Stream](https://www.vernier.com/product/labquest-stream/)
-  - [LabQuest 3](https://www.vernier.com/product/labquest-3/)
-  - [LabQuest 2](https://www.vernier.com/product/labquest-2/)
-  - [LabQuest](https://www.vernier.com/downloads/original-labquest-updates/)
+ - A Vernier [LabQuest Mini](https://www.vernier.com/product/labquest-mini/), [LabQuest Stream](https://www.vernier.com/product/labquest-stream/), [LabQuest 3](https://www.vernier.com/product/labquest-3/), [LabQuest 2](https://www.vernier.com/product/labquest-2/), or [LabQuest Original](https://www.vernier.com/downloads/original-labquest-updates/)
 - One or more [Labquest supported sensors](https://www.vernier.com/product-category/?category=&term_product_family=labquest&page_num=1)
-- A Windows® 10, macOS® computer
+- A Windows® 10 or  macOS® computer
+- An installation of the LabQuest driver (Windows only)
 - An installation of Python 3
-- An installation of the Vernier labquest module for Python 3
+- An installation of the Vernier labquest package for Python 3
+
+## Install the Windows Drivers
+
+To communicate with LabQuest devices on Windows computers a driver must be installed. If you already have Vernier Graphical Analysis or Logger Pro software installed, you have the driver. If you do not have this Vernier software, the driver can be installed with either the [free trial of Graphical Analysis Pro](https://www.vernier.com/products/graphical-analysis/) or the [free demo version of Logger Pro software](https://www.vernier.com/product/logger-pro-3/).
 
 ## Install Python 3
 
-The labquest module is designed to work with Python 3, it is not compatible with Python 2. In some cases, Python is pre-installed and shipped with your operating system. Use the following steps to check for Python 3 on your machine, and to install Python 3 if needed: 
+The labquest package is designed to work with Python 3, it is not compatible with Python 2. In some cases, Python is pre-installed and shipped with your operating system. Use the following steps to check for Python 3 on your machine, and to install Python 3 if needed:
 
-- Open your operating system's tool for executing commands (on Windows 10 this would be Command Prompt or Powershell, on a Mac or Linux this would be a Terminal window).
+- Open your operating system's tool for executing commands (on Windows 10 this would be Command Prompt or Powershell, on a Mac this would be a Terminal window).
 - Check to see if Python 3 is already installed on your machine by running the following command:
   - `python --version`
     - If the response is a version of Python 3, it is installed.
@@ -48,19 +51,19 @@ With Python installed, you need to choose an application that you will use to wr
 
 Later, you may want to research the various IDEs, learn about the different features, and give one a try. For example, Visual Studio Code is a free IDE available for Windows and Mac. There are many other choices, and you can find more information at python.org
 
-## Install the Vernier labquest Module
+## Install the labquest Package
 
-Once you have Python 3 installed, you will use a tool called `pip` (a Python 3 package manager) to install the labquest module and other Python modules that you may need. Python automatically includes `pip`, so this tool is ready to use. Note that we will be using the **`pip3`** command, rather than just `pip`, to ensure that the Vernier files will be associated with Python 3, and not Python 2.
+Once you have Python 3 installed, you will use a tool called `pip` (a Python 3 package manager) to install the labquest package. Python automatically includes `pip`, so this tool is ready to use. Note that we will be using the **`pip3`** command, rather than just `pip`, to ensure that the Vernier files will be associated with Python 3, and not Python 2.
 
 The `pip3` commands are executed by running them in your operating systems’ tool for executing commands (Powershell, Command Prompt, or Terminal window). There are slight differences in the required steps to install the labquest module for Windows, and macOs. Follow the steps outlined below for your platform.
 
-Run the following command in Powershell or Command Prompt (Windows), or Terminal on macOS to install the labquest module:
+Run the following command:
 
 `pip3 install labquest`
 
-## Confirm Installation of the labquest Module
+## Confirm Installation of the labquest Package
 
-At this point, you should have Python 3 installed and have the labquest module installed. Before moving to examples, confirm the installation of the labquest module by showing the version information. Run the following command in the terminal:
+At this point, you should have Python 3 installed and have the labquest package installed. Before moving to examples, confirm the installation of the labquest package by showing the version information. Run the following command in the terminal:
 
 `pip3 show labquest`
 
@@ -71,24 +74,175 @@ Should you need to update to a newer version in the future, run the following co
  
 ## Download and Run an Example
 
-With the labquest module installed, it is time to run an example. 
-- Go to the [github labquest examples page](https://github.com/VernierST/labquest-examples) and download the files by clicking on the “Clone or download” green button and then clicking on the “Download ZIP” button.
+With the labquest package installed, it is time to run an example.
+
+- Go to the [github LabQuest examples page](https://github.com/VernierST/labquest-examples) and download the files by clicking on the “Clone or download” green button and then clicking on the “Download ZIP” button.
 
 ![Clone labquest-examples](./images/github_project_clone.png)
 
 - Locate the zip file in your download folder and extract/unzip the downloaded folder.
 - Open your IDE (Visual Studio Code or IDLE, for example).
 - From your IDE’s menu, choose File>Open
-- Browse to the download and open the folder called “python”.
-- Open one of the getting started examples (lq_analog_sensor_info.py, for example) 
-- Connect your LabQuest via USB and connect you analog sensor to the LabQuest.
+- Browse to the download and open the folder called “labquest_examples”.
+- Open one of the examples that matches the sensor that you are using.
+- Connect your LabQuest device to your computer via USB.
+- Connect your sensor to the LabQuest device.
+- Turn on your LabQuest device, if needed.
 - Run the Python example. (If you are using IDLE, click on “Run Module” from the Run menu.)
+
+## About the Examples
+
+The examples demonstrate how to collect data from LabQuest analog and digital sensors, as well as how to control the output lines of a Vernier Digital Control Unit (DCU). These examples all use the labquest package to communicate with the LabQuest device.
+
+A typical example program to collect periodic, single point data from analog sensors, motion detector, rotary motion, and photogate counting would include the following functions:
+
+```
+lq.open()
+lq.select_sensors()
+lq.start()
+lq.read()
+lq.stop()
+lq.close()
+```
+
+A simple program using these functions looks like this:
+
+```
+from labquest import LabQuest
+import logging
+lq = LabQuest()
+
+lq.open()
+lq.select_sensors({'ch1':'default'})    
+lq.start(100)
+
+for x in range(10):
+    measurements = lq.read()
+    if measurements == None: 
+        break 
+    print(measurements)
+
+lq.stop()
+lq.close()
+```
+
+LabQuest analog sensors, motion detector, rotary motion, and photogate counting will all follow this format (with slight changes to configure data collection from the correct channel and the correct sensor). 
+
+Performing fast data collection (a packet of samples in a short time frame), and performing photogate timing will each use a different read function (this is described below).
+
+In addition, there are examples to show how to control the output from a Digital Control Unit (DCU) connected to LabQuest’s digital channels. The DCU allows you to control small electrical devices such as servo motors, dc motors, fans, buzzers, and such.
+
+
+## Notes Regarding the labquest Functions
+
+Here is some more information about the functions:
+
+```
+from labquest import LabQuest
+import logging
+lq = LabQuest()
+```
+
+- To access the functions you must start the program by importing the labquest module and creating an object called `lq` (you can give this a different name if you would like) to access the `LabQuest()` class. The functions are located in the `LabQuest()` class and can now be accessed using ‘lq’ and the function’s name, such as `lq.open()`, `lq.start()`, or `lq.read()`. 
+
+**`lq.open()`**
+
+- `lq.open()` will open communication to your LabQuest device from your computer via USB.
+
+- There are no arguments for this function.
+
+- Multiple LabQuest devices can be connected as long as they are the same type (for example, you can connect two LabQuest Minis, or two LabQuest 3’s, but not a Mini and a LabQuest 3).
+
+**`lq.select_sensors()`**
+
+- Use this function to configure the sensors used in your program.
+
+- If this function’s argument is left blank, a prompt in the terminal allows the user to configure each LabQuest channel.
+
+- This function takes a dictionary as an argument (dictionaries consist of key:value pairs within curly {} braces).
+
+- The dictionary ‘key’ can be:
+  - ```‘ch1’, ‘ch2’, ‘ch3’, ‘dig1’, ‘dig2’```
+
+- The dictionary ‘value’ for ch1, ch2, and ch3 can be:
+  - ```'default', 'cal0', 'cal1', 'cal2', 'raw_voltage'```
+
+- The dictionary ‘value’ for dig1 and dig2 can be:
+  - ```‘motion’, ‘rotary_motion’, ‘rotary_motion_high_res’, ‘photogate_count’, ‘photogate_timing’, ‘dcu’, ‘dcu_pwm’```
+
+- Here are some examples of how you would create a dictionary argument to match your sensor configuration.
+
+  - A LabQuest temperature sensor connected to channel 1, taking measurements in Celsius, which is the default calibration page
+    - ```lq.select_sensors({‘ch1’:’default’})```
+  - Two LabQuest temperature sensors, with channel 1 reading Celsius and channel 2 reading Fahrenheit (Fahrenheit is stored in the ‘cal1’ calibration page)
+    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’cal1’})```
+  - A LabQuest dual-range force sensor connected to channel 1 and a LabQuest motion detector connected to digital 1
+    - ```lq.select_sensors({‘ch1’:’default’, ‘dig1’:’motion’})```
+  - A temperature sensor connected to channel 1 and a non-Vernier thermistor connected to channel 2 (if you are using a non-Vernier analog sensor, the only option is to read the channel’s raw voltage)
+    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’raw_voltage’})```
+  - Three LabQuest analog sensors connected to a LabQuest, and a fourth analog sensor connected to a second LabQuest device.
+    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’default’, ‘ch3’:’default’},{‘ch1’:’default’})```
+
+**`lq.start()`**
+
+- Start collecting data at a specified period (time between samples).
+This function takes an argument to set the period in milliseconds. For example, `lq.start(1000)` to sample every 1000 milliseconds, or `lq.start(100)` to sample every 100 milliseconds.
+
+- If this function’s argument is left blank, a prompt in the terminal will appear for the user to enter the specified period.
+
+**`measurements = lq.read()`**
+
+- The `lq.read()` function will return single point readings from the selected sensors at the desired period.
+
+- If multiple channels are being sampled, `lq.read()` returns a single point from each channel as a 1D list.
+
+- Place the `lq.read()` function in a loop and make sure the loop can iterate fast enough to keep up with the sampling period (that is, do not have other code in the data collection loop that might slow the loop).
+
+- Single point data collection is the best method for longer and slower acquisition from sensors. For collecting a lot of data in a very short amount of time use `lq.read_multi_pt()`
+
+**`measurements = lq.read_multi_pt()`**
+
+- The `lq.read_multi_pt()` function returns multi-point readings from the selected sensors at the desired period.
+
+- The number of data points to collect is set with this function’s argument. For example, reading 100 data points
+  - `measurements = lq.read_multi_pt(100)`
+
+- Multi-point data collection is the best method to capture a lot of data in a small amount of time. Data collected over a longer time period, at a slower rate, should use `lq.read()`
+
+**`measurements = lq.photogate_timing()`**
+
+- When using a photogate to collect timing data, measurements are not returned with `lq.read()`, instead they are returned with the `lq.photogate_timing()` function.
+
+- This function returns a list of measurements of the photogate’s blocked time, unblocked time, blocked time, unblocked time, etc..
+
+- Unlike analog sensor measurements, photogate timing does not have a sampling period. Therefore, the start function’s argument should be left blank, and the user will not be prompted to enter a sampling period.
+  - `lq.start()`
+
+- The number of blocked and unblocked timing measurements to collect is set by an argument in the function. In addition, a timeout argument (seconds) is set so that the program is not waiting indefinitely for timing measurements. For example, collecting 15 samples with a 10 second timeout
+  - `measurements = lq.photogate_timing(15, 10)`
+
+**`lq.stop()`**
+
+- Stop data collection on the selected sensors.
+
+- Calling the `lq.stop()` function stops data collection but does not disconnect the sensor, so it is possible to start a new round of data collection using start(), read(), and stop().
+
+- If the program is using the Digital Control Unit (DCU), calling `lq.stop()` turns off all DCU output lines and stops any pulse width modulation (pwm) output.
+
+- This function does take arguments that allow independent control of stopping data collection and stopping DCU output. For example, if you wanted to stop pwm output, but continue data collection, set the arguments appropriately.
+  - `stop(stop_measurements=False, stop_dcu=False, stop_pwm=True)`
+
+**`lq.close()`**
+
+- Disconnect and close communication with the LabQuest device.
+After calling `lq.close()` you can not call any other lq functions.
 
 ## Troubleshooting and Notes
 
 ### Support
-- Contact us at:  support@vernier.com
+- Open Graphical Analysis app and confirm your computer can connect to the LabQuest and collect sensor data.
 - If you are familiar with github, you could post a question at: https://github.com/VernierST/labquest-examples/issues
+- Contact us at:  support@vernier.com
  
 ### Python
 - If you are new to Python, here are some generally helpful links for getting started with Python.
