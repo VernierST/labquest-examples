@@ -10,7 +10,8 @@ rates, the data will be collected in packets. In this example, we want
 from labquest import LabQuest
 import logging
 
-# uncomment to show debug messages from the labquest module
+# If troubleshooting is necessary, uncomment the 'logging' code below. If 'INFO' does 
+# not provide enough feedback, change 'logging.INFO' to 'logging.DEBUG' 
 #logging.basicConfig()
 #logging.getLogger('labquest').setLevel(logging.INFO)
 

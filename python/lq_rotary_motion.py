@@ -17,7 +17,8 @@ lq.start(250, reset_dig_counter=False)
 from labquest import LabQuest
 import logging
 
-# uncomment to show debug messages from the labquest module
+# If troubleshooting is necessary, uncomment the 'logging' code below. If 'INFO' does 
+# not provide enough feedback, change 'logging.INFO' to 'logging.DEBUG' 
 #logging.basicConfig()
 #logging.getLogger('labquest').setLevel(logging.INFO)
 
