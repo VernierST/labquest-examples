@@ -240,6 +240,7 @@ After calling `lq.close()` you can not call any other lq functions.
 ## Troubleshooting and Notes
 
 ### Support
+- The LabQuest example programs include code that show how to run the logging module. Simply uncomment the two lines of code as explained in the examples. This will provide 'debug' and 'info' messsages in the consule as the code runs.   
 - Open Graphical Analysis app and confirm your computer can connect to the LabQuest and collect sensor data.
 - If you are familiar with github, you could post a question at: https://github.com/VernierST/labquest-examples/issues
 - Contact us at:  support@vernier.com
