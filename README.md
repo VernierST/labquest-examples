@@ -175,8 +175,8 @@ string value corresponding to what sensor is connected (e.g. ch1='lq_sensor')
     - ```lq.select_sensors(ch1='lq_sensor', ch2='lq_sensor_cal1')```
   - A LabQuest dual-range force sensor connected to channel 1 and a LabQuest motion detector connected to digital 1
     - ```lq.select_sensors(ch1='lq_sensor', dig1='motion'})```
-  - A non-Vernier thermistor connected to channel 1 reading the 0-5 volt signal from the sensor. This is good for non-Vernier sensors or to read the raw signal of a Vernier analog sensor.
-    - ```lq.select_sensors(ch1='raw_voltage)```
+  - A non-Vernier thermistor connected to channel 1 reading the 0-5 volt signal from the sensor. Configuring to read 'raw_voltage' is good for non-Vernier sensors or the raw signal of a Vernier analog sensor.
+    - ```lq.select_sensors(ch1='raw_voltage')```
 
 **`lq.start()`**
 
