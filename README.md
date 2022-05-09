@@ -109,18 +109,18 @@ A simple program using these functions looks like this:
 
 ```
 from labquest import LabQuest
-import logging
+
 lq = LabQuest()
 
 lq.open()
-lq.select_sensors({'ch1':'default'})    
+lq.select_sensors(ch1='lq_sensor')    
 lq.start(100)
 
 for x in range(10):
-    measurements = lq.read()
-    if measurements == None: 
+    ch1_measurement = lq.read('ch1')
+    if ch1_measurement == None: 
         break 
-    print(measurements)
+    print(ch1_measurement)
 
 lq.stop()
 lq.close()
@@ -139,7 +139,6 @@ Here is some more information about the functions:
 
 ```
 from labquest import LabQuest
-import logging
 lq = LabQuest()
 ```
 
@@ -155,33 +154,29 @@ lq = LabQuest()
 
 **`lq.select_sensors()`**
 
-- Use this function to configure the sensors used in your program.
+- Use this function to configure all of the sensors used in your program.
 
 - If this function’s argument is left blank, a prompt in the terminal allows the user to configure each LabQuest channel.
 
-- This function takes a dictionary as an argument (dictionaries consist of key:value pairs within curly {} braces).
+- This function has parameters for all of the channels (ch1, ch2, ch3, dig1, dig2). Set each channel with a 
+string value corresponding to what sensor is connected (e.g. ch1='lq_sensor')
 
-- The dictionary ‘key’ can be:
-  - ```‘ch1’, ‘ch2’, ‘ch3’, ‘dig1’, ‘dig2’```
+- The string value for ch1, ch2, and ch3 can be:
+  - ```'lq_sensor', 'lq_sensor_cal0', 'lq_sensor_cal1', 'lq_sensor_cal2', 'raw_voltage'```
 
-- The dictionary ‘value’ for ch1, ch2, and ch3 can be:
-  - ```'default', 'cal0', 'cal1', 'cal2', 'raw_voltage'```
-
-- The dictionary ‘value’ for dig1 and dig2 can be:
+- The string value for dig1 and dig2 can be:
   - ```‘motion’, ‘rotary_motion’, ‘rotary_motion_high_res’, ‘photogate_count’, ‘photogate_timing’, ‘dcu’, ‘dcu_pwm’```
 
-- Here are some examples of how you would create a dictionary argument to match your sensor configuration.
+- Here are some examples of how you would set the parameters to match your sensor configuration.
 
   - A LabQuest temperature sensor connected to channel 1, taking measurements in Celsius, which is the default calibration page
-    - ```lq.select_sensors({‘ch1’:’default’})```
+    - ```lq.select_sensors(ch1='lq_sensor')```
   - Two LabQuest temperature sensors, with channel 1 reading Celsius and channel 2 reading Fahrenheit (Fahrenheit is stored in the ‘cal1’ calibration page)
-    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’cal1’})```
+    - ```lq.select_sensors(ch1='lq_sensor', ch2='lq_sensor_cal1')```
   - A LabQuest dual-range force sensor connected to channel 1 and a LabQuest motion detector connected to digital 1
-    - ```lq.select_sensors({‘ch1’:’default’, ‘dig1’:’motion’})```
-  - A temperature sensor connected to channel 1 and a non-Vernier thermistor connected to channel 2 (if you are using a non-Vernier analog sensor, the only option is to read the channel’s raw voltage)
-    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’raw_voltage’})```
-  - Three LabQuest analog sensors connected to a LabQuest, and a fourth analog sensor connected to a second LabQuest device.
-    - ```lq.select_sensors({‘ch1’:’default’, ‘ch2’:’default’, ‘ch3’:’default’},{‘ch1’:’default’})```
+    - ```lq.select_sensors(ch1='lq_sensor', dig1='motion'})```
+  - A non-Vernier thermistor connected to channel 1 reading the 0-5 volt signal from the sensor. This is good for non-Vernier sensors or to read the raw signal of a Vernier analog sensor.
+    - ```lq.select_sensors(ch1='raw_voltage)```
 
 **`lq.start()`**
 
@@ -190,11 +185,15 @@ This function takes an argument to set the period in milliseconds. For example, 
 
 - If this function’s argument is left blank, a prompt in the terminal will appear for the user to enter the specified period.
 
-**`measurements = lq.read()`**
+**`measurement = lq.read()`**
 
-- The `lq.read()` function will return single point readings from the selected sensors at the desired period.
+- The `lq.read()` function will return single point readings from the selected channel at the desired period.
 
-- If multiple channels are being sampled, `lq.read()` returns a single point from each channel as a 1D list.
+- Use a separate `lq.read()` for each configured channel.
+
+- The channel to read is set with this function's argument. For example, reading from ch1 and dig1
+  - `ch1_measurement = lq.read('ch1')`
+  - `dig1_measurement = lq.read('dig1')`
 
 - Place the `lq.read()` function in a loop and make sure the loop can iterate fast enough to keep up with the sampling period (that is, do not have other code in the data collection loop that might slow the loop).
 
@@ -202,10 +201,10 @@ This function takes an argument to set the period in milliseconds. For example, 
 
 **`measurements = lq.read_multi_pt()`**
 
-- The `lq.read_multi_pt()` function returns multi-point readings from the selected sensors at the desired period.
+- The `lq.read_multi_pt()` function returns multi-point readings from the selected channel at the desired period.
 
-- The number of data points to collect is set with this function’s argument. For example, reading 100 data points
-  - `measurements = lq.read_multi_pt(100)`
+- The channel and number of data points to collect is set with this function’s arguments. For example, reading 100 data points from ch1
+  - `ch1_measurements = lq.read_multi_pt('ch1', 100)`
 
 - Multi-point data collection is the best method to capture a lot of data in a small amount of time. Data collected over a longer time period, at a slower rate, should use `lq.read()`
 
@@ -218,8 +217,8 @@ This function takes an argument to set the period in milliseconds. For example, 
 - Unlike analog sensor measurements, photogate timing does not have a sampling period. Therefore, the start function’s argument should be left blank, and the user will not be prompted to enter a sampling period.
   - `lq.start()`
 
-- The number of blocked and unblocked timing measurements to collect is set by an argument in the function. In addition, a timeout argument (seconds) is set so that the program is not waiting indefinitely for timing measurements. For example, collecting 15 samples with a 10 second timeout
-  - `measurements = lq.photogate_timing(15, 10)`
+- The number of blocked and unblocked timing measurements to collect is set by an argument in the function. In addition, a timeout argument (seconds) is set so that the program is not waiting indefinitely for timing measurements. For example, a photogate connected to dig1, collecting 15 samples, with a 10 second timeout
+  - `measurements = lq.photogate_timing('dig1', 15, 10)`
 
 **`lq.stop()`**
 
